@@ -1,9 +1,7 @@
 # wessels.nz infrastructure modules
 
+## aws-serverless-express
+
 ### 0.0.1
-
-- Initialized repo.
-
-### 0.0.2
 
 - Added aws-serverless-express module.
