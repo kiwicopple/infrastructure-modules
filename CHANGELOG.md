@@ -7,3 +7,7 @@
 ### 0.0.2
 
 - Added aws-serverless-express module.
+
+### 0.0.3
+
+- Added platform-domain module.
