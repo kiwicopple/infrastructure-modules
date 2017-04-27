@@ -2,7 +2,7 @@ variable "environment" {
   type = "string"
   description = "The environment name (prod/domain.com)."
 }
-variable "platform_domain" {
+variable "platform_domain_name" {
   type = "string"
   description = "The fully qualified platform domain name. (domain.com.)"
 }

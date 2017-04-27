@@ -1,9 +1,6 @@
-output "PlatformRestApiId" {
-  value = "${aws_api_gateway_rest_api.PlatformAPI.id}"
+output "rest_api_id" {
+  value = "${aws_api_gateway_rest_api.platform_api.id}"
 }
-output "PlatformRestApiRootResourceId" {
-  value = "${aws_api_gateway_rest_api.PlatformAPI.root_resource_id}"
-}
-output "PlatformRestApiDeploymentId" {
-  value = "${aws_api_gateway_deployment.PlatformAPI.id}"
+output "rest_api_root_resource_id" {
+  value = "${aws_api_gateway_rest_api.platform_api.root_resource_id}"
 }
