@@ -8,7 +8,7 @@
  */
 resource "aws_iam_role" "PlatformAPIGatewayAccount" {
   name = "platform_api_gateway_account"
-  assume_role_policy = "${file("./IAM/CloudWatch/APIGateway/AssumeRolePolicy.json")}"
+  assume_role_policy = "${file("${path.module}/IAM/CloudWatch/APIGateway/AssumeRolePolicy.json")}"
 }
 
 /**
@@ -17,7 +17,7 @@ resource "aws_iam_role" "PlatformAPIGatewayAccount" {
 resource "aws_iam_role_policy" "PlatformAPIGatewayAccount" {
   name = "platform_api_gateway_account"
   role = "${aws_iam_role.PlatformAPIGatewayAccount.id}"
-  policy = "${file("./IAM/CloudWatch/APIGateway/InlinePolicy.json")}"
+  policy = "${file("${path.module}/IAM/CloudWatch/APIGateway/InlinePolicy.json")}"
 }
 
 /**
