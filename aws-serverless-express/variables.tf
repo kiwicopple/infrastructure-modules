@@ -14,6 +14,14 @@ variable "role_arn" {
   type = "string"
   description = "The IAM role ARN for the lambda function."
 }
+variable "handler" {
+  type = "string"
+  description = "The handler of the lambda function."
+}
+variable "runtime" {
+  type = "string"
+  description = "The runtime required by the lambda function."
+}
 variable "rest_api_id" {
   type = "string"
   description = "The ID of the APIGateway REST API that provides the endpoint to the lambda function."
