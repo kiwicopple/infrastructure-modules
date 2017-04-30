@@ -37,6 +37,7 @@ resource "aws_lambda_permission" "aws_serverless_express" {
  * Create a Proxy Resource for the Lambda Function.
  */
 resource "aws_api_gateway_resource" "aws_serverless_express" {
+  count = "${var.create_child_resource}"
   rest_api_id = "${var.rest_api_id}"
   parent_id = "${var.rest_api_parent_resource_id}"
   path_part = "{proxy+}"
@@ -47,7 +48,7 @@ resource "aws_api_gateway_resource" "aws_serverless_express" {
  */
 resource "aws_api_gateway_method" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.aws_serverless_express.id}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.id, var.rest_api_id), 0)}"
   http_method = "ANY"
   authorization = "NONE"
 }
@@ -57,7 +58,7 @@ resource "aws_api_gateway_method" "aws_serverless_express" {
  */
 resource "aws_api_gateway_integration" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.aws_serverless_express.id}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.id, var.rest_api_id), 0)}"
   http_method = "${aws_api_gateway_method.aws_serverless_express.http_method}"
   type = "AWS_PROXY"
   uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.aws_serverless_express.arn}/invocations"
@@ -69,7 +70,7 @@ resource "aws_api_gateway_integration" "aws_serverless_express" {
  */
 resource "aws_api_gateway_integration_response" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.aws_serverless_express.id}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.id, var.rest_api_id), 0)}"
   http_method = "${aws_api_gateway_method.aws_serverless_express.http_method}"
   status_code = "${aws_api_gateway_method_response.aws_serverless_express.status_code}"
   depends_on = ["aws_api_gateway_integration.aws_serverless_express"]
@@ -80,7 +81,7 @@ resource "aws_api_gateway_integration_response" "aws_serverless_express" {
  */
 resource "aws_api_gateway_method_response" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.aws_serverless_express.id}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.id, var.rest_api_id), 0)}"
   http_method = "${aws_api_gateway_method.aws_serverless_express.http_method}"
   status_code = "200"
   response_models = {
@@ -91,7 +92,7 @@ resource "aws_api_gateway_method_response" "aws_serverless_express" {
 /**
  * Create an indicator resource signaling the readyness to deploy the REST API.
  */
-resource "null_resource" "aws_serverless_express" {
+resource "null_resource" "module_dependency" {
   depends_on = [
     "aws_api_gateway_integration.aws_serverless_express",
     "aws_api_gateway_integration_response.aws_serverless_express"
