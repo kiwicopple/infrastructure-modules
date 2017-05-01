@@ -37,4 +37,5 @@ variable "create_child_resource" {
 variable "child_resource_path" {
   type = "string"
   description = "The path to be used by the APIGateway REST API child resource."
+  default = ""
 }
