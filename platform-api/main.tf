@@ -25,6 +25,6 @@ resource "aws_api_gateway_deployment" "platform_api" {
  */
 resource "null_resource" "ready_for_deployment" {
   triggers {
-    dummy = "${var.ready_for_deployment}"
+    dummy = "${length(var.ready_for_deployment)}"
   }
 }
