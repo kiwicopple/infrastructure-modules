@@ -16,7 +16,7 @@ resource "aws_api_gateway_rest_api" "platform_api" {
  */
 resource "aws_api_gateway_deployment" "platform_api" {
   rest_api_id = "${aws_api_gateway_rest_api.platform_api.id}"
-  stage_name = "prod"
+  stage_name = "${null_resource.ready_for_deployment.triggers.dummy}"
   depends_on = ["null_resource.ready_for_deployment"]
 }
 
@@ -25,6 +25,6 @@ resource "aws_api_gateway_deployment" "platform_api" {
  */
 resource "null_resource" "ready_for_deployment" {
   triggers {
-    dummy = "${length(var.ready_for_deployment)}"
+    dummy = "${length(var.ready_for_deployment) > 0 ? "prod" : ""}"
   }
 }
