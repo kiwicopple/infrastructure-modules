@@ -94,7 +94,10 @@ resource "aws_api_gateway_method_response" "aws_serverless_express" {
  */
 resource "null_resource" "module_dependency" {
   depends_on = [
+    "aws_api_gateway_resource.aws_serverless_express",
+    "aws_api_gateway_method.aws_serverless_express",
     "aws_api_gateway_integration.aws_serverless_express",
-    "aws_api_gateway_integration_response.aws_serverless_express"
+    "aws_api_gateway_integration_response.aws_serverless_express",
+    "aws_api_gateway_method_response.aws_serverless_express"
   ]
 }
