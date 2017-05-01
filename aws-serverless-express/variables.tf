@@ -34,3 +34,7 @@ variable "create_child_resource" {
   type = "string"
   description = "If true this will create a child resource under the given parent resource."
 }
+variable "child_resource_path" {
+  type = "string"
+  description = "The path to be used by the APIGateway REST API child resource."
+}

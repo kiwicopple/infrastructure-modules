@@ -40,7 +40,7 @@ resource "aws_api_gateway_resource" "aws_serverless_express" {
   count = "${var.create_child_resource}"
   rest_api_id = "${var.rest_api_id}"
   parent_id = "${var.rest_api_parent_resource_id}"
-  path_part = "{proxy+}"
+  path_part = "${var.child_resource_path}"
 }
 
 /**
@@ -48,7 +48,7 @@ resource "aws_api_gateway_resource" "aws_serverless_express" {
  */
 resource "aws_api_gateway_method" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, var.rest_api_id), 0)}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, list(var.rest_api_parent_resource_id)), 0)}"
   http_method = "ANY"
   authorization = "NONE"
 }
@@ -58,7 +58,7 @@ resource "aws_api_gateway_method" "aws_serverless_express" {
  */
 resource "aws_api_gateway_integration" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, var.rest_api_id), 0)}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, list(var.rest_api_parent_resource_id)), 0)}"
   http_method = "${aws_api_gateway_method.aws_serverless_express.http_method}"
   type = "AWS_PROXY"
   uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.aws_serverless_express.arn}/invocations"
@@ -70,7 +70,7 @@ resource "aws_api_gateway_integration" "aws_serverless_express" {
  */
 resource "aws_api_gateway_integration_response" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, var.rest_api_id), 0)}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, list(var.rest_api_parent_resource_id)), 0)}"
   http_method = "${aws_api_gateway_method.aws_serverless_express.http_method}"
   status_code = "${aws_api_gateway_method_response.aws_serverless_express.status_code}"
   depends_on = ["aws_api_gateway_integration.aws_serverless_express"]
@@ -81,7 +81,7 @@ resource "aws_api_gateway_integration_response" "aws_serverless_express" {
  */
 resource "aws_api_gateway_method_response" "aws_serverless_express" {
   rest_api_id = "${var.rest_api_id}"
-  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, var.rest_api_id), 0)}"
+  resource_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express.*.id, list(var.rest_api_parent_resource_id)), 0)}"
   http_method = "${aws_api_gateway_method.aws_serverless_express.http_method}"
   status_code = "200"
   response_models = {
