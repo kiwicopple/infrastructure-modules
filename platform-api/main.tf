@@ -21,3 +21,10 @@ resource "aws_api_gateway_deployment" "platform_api" {
   stage_description = "${var.stage_description}"
   depends_on = ["aws_api_gateway_rest_api.platform_api"]
 }
+
+resource "null_resource" "serverless_express" {
+  count = 2
+  triggers {
+    name = "${element(var.serverless_express_endpoint, count.index).name}"
+  }
+}
