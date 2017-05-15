@@ -64,8 +64,6 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
         "TLSv1",
         "TLSv1.1",
         "TLSv1.2"]
-      origin_keepalive_timeout = 5
-      origin_read_timeout = 30
     }
   }
   origin {
