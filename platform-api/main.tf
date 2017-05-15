@@ -25,6 +25,6 @@ resource "aws_api_gateway_deployment" "platform_api" {
 resource "null_resource" "serverless_express" {
   count = 2
   triggers {
-    name = "${element(var.serverless_express_endpoint, count.index).name}"
+    name = "${lookup(var.serverless_express_endpoint, count.index).name}"
   }
 }
