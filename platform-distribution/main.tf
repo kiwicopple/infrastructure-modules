@@ -69,18 +69,9 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
   origin {
     domain_name = "${var.resource_origin_domain_name}"
     origin_id = "${var.resource_origin_id}"
-    custom_origin_config {
-      http_port = 80
-      https_port = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols = [
-        "TLSv1",
-        "TLSv1.1",
-        "TLSv1.2"]
+    s3_origin_config {
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.PlatformDistribution.cloudfront_access_identity_path}"
     }
-//    s3_origin_config {
-//      origin_access_identity = "${aws_cloudfront_origin_access_identity.PlatformDistribution.cloudfront_access_identity_path}"
-//    }
   }
   price_class = "PriceClass_All"
   restrictions {
