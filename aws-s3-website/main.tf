@@ -20,6 +20,10 @@ data "aws_iam_policy_document" "aws_s3_website" {
     actions = [
       "s3:GetObject",
     ]
+    principals {
+      identifiers = ["*"]
+      type = "*"
+    }
     resources = [
       "arn:aws:s3:::${var.bucket_name}/*",
     ]
