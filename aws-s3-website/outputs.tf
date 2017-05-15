@@ -1,3 +1,3 @@
-output "bucket_id" {
-  value = "${aws_s3_bucket.aws_s3_website.id}"
+output "website_endpoint" {
+  value = "${aws_s3_bucket.aws_s3_website.website_endpoint}"
 }
