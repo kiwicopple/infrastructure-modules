@@ -19,4 +19,5 @@ resource "aws_api_gateway_deployment" "platform_api" {
   rest_api_id = "${aws_api_gateway_rest_api.platform_api.id}"
   stage_name = "${var.stage_name}"
   stage_description = "${var.stage_description}"
+  depends_on = ["aws_api_gateway_rest_api.platform_api"]
 }
