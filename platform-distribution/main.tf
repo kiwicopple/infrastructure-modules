@@ -29,7 +29,7 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
     }
     max_ttl = 86400
     min_ttl = 0
-    target_origin_id = "${var.root_origin_id}"
+    target_origin_id = "${var.resource_origin_id}"
     viewer_protocol_policy = "redirect-to-https"
   }
   cache_behavior {
@@ -50,7 +50,7 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
     max_ttl = 86400
     min_ttl = 0
     path_pattern = "/resources"
-    target_origin_id = "${var.resource_origin_id}"
+    target_origin_id = "${var.root_origin_id}"
     viewer_protocol_policy = "redirect-to-https"
   }
   origin {
@@ -70,9 +70,9 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
   origin {
     domain_name = "${var.resource_origin_domain_name}"
     origin_id = "${var.resource_origin_id}"
-    s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.PlatformDistribution.cloudfront_access_identity_path}"
-    }
+//    s3_origin_config {
+//      origin_access_identity = "${aws_cloudfront_origin_access_identity.PlatformDistribution.cloudfront_access_identity_path}"
+//    }
   }
   price_class = "PriceClass_All"
   restrictions {
@@ -91,6 +91,6 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
 /**
  * Origin Identity to workaround https://github.com/hashicorp/terraform/issues/7930
  */
-resource "aws_cloudfront_origin_access_identity" "PlatformDistribution" {
-  comment = "Managed by Terraform"
-}
+//resource "aws_cloudfront_origin_access_identity" "PlatformDistribution" {
+//  comment = "Managed by Terraform"
+//}
