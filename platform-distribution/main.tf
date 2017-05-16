@@ -56,6 +56,7 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
   origin {
     domain_name = "${var.root_origin_domain_name}"
     origin_id = "${var.root_origin_id}"
+    origin_path = "${var.root_origin_path}"
     custom_origin_config {
       http_port = 80
       https_port = 443

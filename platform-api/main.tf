@@ -72,7 +72,8 @@ module "platform_distribution" {
   root_origin_id = "platform_api_website"
   // https://github.com/hashicorp/terraform/pull/13889
   // "${aws_api_gateway_deployment.platform_api.invoke_url}"
-  root_origin_domain_name = "${aws_api_gateway_rest_api.platform_api.id}.execute-api.${var.region}.amazonaws.com/${var.stage_name}"
+  root_origin_domain_name = "${aws_api_gateway_rest_api.platform_api.id}.execute-api.${var.region}.amazonaws.com"
+  root_origin_path = "/${var.stage_name}"
   resource_origin_id = "platform_s3_website"
   resource_origin_domain_name = "${module.platform_bucket_website_resources.bucket_domain_name}"
   domain_certificate_arn = "${var.domain_certificate_arn}"
