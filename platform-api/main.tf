@@ -25,20 +25,20 @@ resource "aws_api_gateway_deployment" "platform_api" {
 /**
  * Create the Website endpoint for the Platform API.
  */
-module "serverless_express_endpoint" {
-  count = 2
-  source = "git::git@github.com:wessels-nz/infrastructure-modules.git//aws-serverless-express"
-  region = "${var.region}"
-  filename = "${null_resource.serverless_express.*.filename[count.index]}"
-  function_name = "${null_resource.serverless_express.*.function_name[count.index]}"
-  role_arn = "${null_resource.serverless_express.*.role_arn[count.index]}"
-  handler = "${null_resource.serverless_express.*.handler[count.index]}"
-  runtime = "${null_resource.serverless_express.*.runtime[count.index]}"
-  create_child_resource = "${null_resource.serverless_express.*.create_child_resource[count.index]}"
-  child_resource_path = "${null_resource.serverless_express.*.child_resource_path[count.index]}"
-  rest_api_id = "${aws_api_gateway_rest_api.platform_api.id}"
-  rest_api_parent_resource_id = "${aws_api_gateway_rest_api.platform_api.root_resource_id}"
-}
+//module "serverless_express_endpoint" {
+//  count = 2
+//  source = "git::git@github.com:wessels-nz/infrastructure-modules.git//aws-serverless-express"
+//  region = "${var.region}"
+//  filename = "${null_resource.serverless_express.*.filename[count.index]}"
+//  function_name = "${null_resource.serverless_express.*.function_name[count.index]}"
+//  role_arn = "${null_resource.serverless_express.*.role_arn[count.index]}"
+//  handler = "${null_resource.serverless_express.*.handler[count.index]}"
+//  runtime = "${null_resource.serverless_express.*.runtime[count.index]}"
+//  create_child_resource = "${null_resource.serverless_express.*.create_child_resource[count.index]}"
+//  child_resource_path = "${null_resource.serverless_express.*.child_resource_path[count.index]}"
+//  rest_api_id = "${aws_api_gateway_rest_api.platform_api.id}"
+//  rest_api_parent_resource_id = "${aws_api_gateway_rest_api.platform_api.root_resource_id}"
+//}
 
 resource "null_resource" "serverless_express" {
   count = 2
