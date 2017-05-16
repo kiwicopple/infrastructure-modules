@@ -26,3 +26,11 @@ variable "graphql_lambda_role_arn" {
   type = "string"
   description = "The IAM role ARN for the lambda function."
 }
+variable "domain_name" {
+  type = "string"
+  description = "The arn of the acm domain certificate."
+}
+variable "domain_certificate_arn" {
+  type = "string"
+  description = "The arn of the acm domain certificate."
+}

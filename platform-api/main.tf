@@ -56,6 +56,27 @@ module "platform_api_graphql" {
 }
 
 /**
+ * Create the S3 Bucket and Endpoint for the Platform Resources. TODO Files need to be copied manually at the moment.
+ */
+module "platform_bucket_website_resources" {
+  source = "git::git@github.com:wessels-nz/infrastructure-modules.git//aws-s3-website"
+  bucket_name = "wessels.nz"
+}
+
+/**
+ * Create the CloudFront Distribution for the Platform Website.
+*/
+module "platform_distribution" {
+  source = "git::git@github.com:wessels-nz/infrastructure-modules.git//platform-distribution"
+  aliases = ["${var.domain_name}"]
+  root_origin_id = "platform_api_website"
+  root_origin_domain_name = "${aws_api_gateway_deployment.platform_api.invoke_url}"
+  resource_origin_id = "platform_s3_website"
+  resource_origin_domain_name = "${module.platform_bucket_website_resources.bucket_domain_name}"
+  domain_certificate_arn = "${var.domain_certificate_arn}"
+}
+
+/**
  * Create the Website endpoint for the Platform API.
  */
 //module "serverless_express_endpoint" {
