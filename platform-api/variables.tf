@@ -18,17 +18,9 @@ variable "website_lambda_role_arn" {
   type = "string"
   description = "The IAM role ARN for the lambda function."
 }
-variable "graphql_lambda_filename" {
-  type = "string"
-  description = "The full path and filename to the lambda function's zip file."
-}
-variable "graphql_lambda_role_arn" {
-  type = "string"
-  description = "The IAM role ARN for the lambda function."
-}
 variable "domain_name" {
   type = "string"
-  description = "The arn of the acm domain certificate."
+  description = "The platform domain name."
 }
 variable "domain_certificate_arn" {
   type = "string"

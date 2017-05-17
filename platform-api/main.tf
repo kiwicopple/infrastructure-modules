@@ -23,8 +23,7 @@ resource "aws_api_gateway_deployment" "platform_api" {
   stage_description = "${var.stage_description}"
   depends_on = [
     "aws_api_gateway_rest_api.platform_api",
-    "module.platform_api_website",
-    "module.platform_api_graphql"]
+    "module.platform_api_website"]
 }
 
 /**
