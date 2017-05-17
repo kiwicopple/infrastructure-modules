@@ -100,7 +100,7 @@ resource "aws_api_gateway_method_response" "aws_serverless_express_root" {
 resource "aws_api_gateway_resource" "aws_serverless_express_proxy" {
   rest_api_id = "${var.rest_api_id}"
   parent_id = "${element(concat(aws_api_gateway_resource.aws_serverless_express_root.*.id, list(var.rest_api_parent_resource_id)), 0)}"
-  path_part = "/{proxy+}"
+  path_part = "{proxy+}"
 }
 
 /**
