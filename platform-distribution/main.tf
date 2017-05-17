@@ -29,7 +29,7 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
     }
     max_ttl = 86400
     min_ttl = 0
-    target_origin_id = "${var.resource_origin_id}"
+    target_origin_id = "${var.root_origin_id}"
     viewer_protocol_policy = "redirect-to-https"
   }
   cache_behavior {
@@ -49,8 +49,8 @@ resource "aws_cloudfront_distribution" "PlatformDistribution" {
     }
     max_ttl = 86400
     min_ttl = 0
-    path_pattern = "/resources"
-    target_origin_id = "${var.root_origin_id}"
+    path_pattern = "resources/*"
+    target_origin_id = "${var.resource_origin_id}"
     viewer_protocol_policy = "redirect-to-https"
   }
   origin {
