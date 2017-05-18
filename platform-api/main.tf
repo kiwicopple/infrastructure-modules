@@ -63,7 +63,7 @@ module "platform_bucket_website_resources" {
 /**
  * Create the CloudFront Distribution for the Platform Website.
 */
-resource "aws_cloudfront_distribution" "PlatformDistribution" {
+resource "aws_cloudfront_distribution" "platform_distribution" {
   enabled = true
   comment = "Managed by Terraform"
   aliases = [
