@@ -40,3 +40,17 @@ resource "aws_route53_record" "platform_mail" {
   ttl = "300"
   records = ["${var.email_mx_records}"]
 }
+
+/**
+ * Records routing to the CloudFront distribution of the platform website.
+ */
+resource "aws_route53_record" "platform_website" {
+  zone_id = "${aws_route53_zone.platform.zone_id}"
+  name = "${aws_route53_zone.platform.name}"
+  type = "A"
+  alias {
+    name = "${var.cloudfront_distribution_domain_name}"
+    zone_id = "${var.cloudfront_distribution_hosted_zone_id}"
+    evaluate_target_health = false
+  }
+}
